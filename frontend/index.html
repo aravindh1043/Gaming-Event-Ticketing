@@ -5,19 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Gaming Event Ticketing</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Gaming Event Ticketing</h1>
+<header>
+    <h1>🎮 Gaming Event Ticketing</h1>
+    <p>Discover and register for exciting gaming events</p>
+</header>
 
-    <h2>Welcome to Gaming Event Ticketing</h2>
+<nav>
+    <a href="#events">Events</a>
+    <a href="#register">Registration</a>
+    <a href="#registrations">Registrations</a>
+</nav>
 
-    <p>
-        Discover exciting gaming events and register for your favourite tournaments.
-    </p>
+<div class="container">
 
-    <button>Explore Events</button>
+    <h2 id="events">Upcoming Gaming Events</h2>
 
+    <div class="events">
+
+        <div class="card">
+            <h3>BGMI Championship</h3>
+            <p>📅 15 October 2026</p>
+            <p>💰 ₹200</p>
+            <button onclick="selectEvent('BGMI Championship')">
+                Register
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>Free Fire Tournament</h3>
+            <p>📅 20 October 2026</p>
+            <p>💰 ₹150</p>
+            <button onclick="selectEvent('Free Fire Tournament')">
+                Register
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>Valorant Battle</h3>
+            <p>📅 25 October 2026</p>
+            <p>💰 ₹300</p>
+            <button onclick="selectEvent('Valorant Battle')">
+                Register
+            </button>
+        </div>
+
+    </div>
+
+    <h2 id="register">Event Registration</h2>
+
+    <form onsubmit="registerUser(event)">
+
+        <label>Name</label>
+        <input type="text" id="name" required>
+
+        <label>Email</label>
+        <input type="email" id="email" required>
+
+        <label>Select Event</label>
+        <select id="event" required>
+            <option value="">-- Select Event --</option>
+            <option>BGMI Championship</option>
+            <option>Free Fire Tournament</option>
+            <option>Valorant Battle</option>
+        </select>
+
+        <button type="submit">Register Now</button>
+
+    </form>
+
+    <h2 id="registrations">Registered Participants</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Event</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="registrationList">
+        </tbody>
+    </table>
+
+</div>
+
+<footer>
+    <p>© 2026 Gaming Event Ticketing</p>
+</footer>
+
+<script>
+
+    function selectEvent(eventName) {
+        document.getElementById("event").value = eventName;
+        document.getElementById("register").scrollIntoView();
+    }
+
+    function registerUser(event) {
+
+        event.preventDefault();
+
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let game = document.getElementById("event").value;
+
+        let table = document.getElementById("registrationList");
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerHTML = name;
+        row.insertCell(1).innerHTML = email;
+        row.insertCell(2).innerHTML = game;
+
+        row.insertCell(3).innerHTML =
+            '<button class="delete" onclick="deleteRow(this)">Delete</button>';
+
+        alert("Registration Successful!");
+
+        document.querySelector("form").reset();
+    }
+
+    function deleteRow(button) {
+        button.parentElement.parentElement.remove();
+        alert("Registration Deleted!");
+    }
+
+</script>
+<script src="script.js"></script>
 </body>
 </html>
